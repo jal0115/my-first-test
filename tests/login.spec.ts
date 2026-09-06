@@ -18,7 +18,9 @@ test('1. Амжилттай нэвтрэх', async ({ page }) => {
 
   // Тестээ зөв төгсгөх: цэс нээгээд Logout хийнэ
   await page.locator('#react-burger-menu-btn').click();
-  await page.getByText('Logout').click();
+  const logoutLink = page.locator('#logout_sidebar_link');
+  await logoutLink.waitFor({ state: 'visible' });
+  await logoutLink.click();
 });
 
 test('2. Амжилтгүй нэвтрэх — буруу нууц үг', async ({ page }) => {
@@ -43,11 +45,13 @@ test('3. Нэвтэрсний дараа бараа сагслах', async ({ pa
 
   // Эхний барааг сагслах товч дарна
   await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
-
+  
   // Сагсны тоо 1 болсныг шалгана
   await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
 
   // Тестээ зөв төгсгөх
   await page.locator('#react-burger-menu-btn').click();
-  await page.getByText('Logout').click();
+  const logoutLink = page.locator('#logout_sidebar_link');
+  await logoutLink.waitFor({ state: 'visible' });
+  await logoutLink.click();
 });
